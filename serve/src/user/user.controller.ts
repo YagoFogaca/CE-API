@@ -56,7 +56,7 @@ export class ControllerUser {
     }
   }
 
-  @Patch('/find-user:id')
+  @Patch('/update-user/:id')
   async update(@Body() user: UpdateUserDto, @Param('id') id: string) {
     try {
       return await this.serviceUser.update(user, id);
