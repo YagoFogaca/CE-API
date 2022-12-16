@@ -46,7 +46,7 @@ export class ControllerUser {
     }
   }
 
-  @Get('/find-user:id')
+  @Get('/find-user/:id')
   async findById(@Param('id') id: string) {
     try {
       return await this.serviceUser.findById(id);
