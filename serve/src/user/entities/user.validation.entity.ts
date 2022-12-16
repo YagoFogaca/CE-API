@@ -24,7 +24,7 @@ export class UserValidationEntity {
   }
 
   validateNameUser() {
-    if (this.nome_usuario.length <= 2) {
+    if (this.nome.length <= 2) {
       throw new Error('O nome do usário não pode ser menor que 3 caracteres');
     }
   }
