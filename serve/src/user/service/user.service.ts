@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create.userDto';
 import { UpdateUserDto } from '../dto/update.userDto';
 import { IUserEntity } from '../entities/user.entity';
@@ -7,6 +8,7 @@ import { FindAllUserUsecase } from './usecase/user.findAll.usecase';
 import { FindByIdUserUsecase } from './usecase/user.findById.usercase';
 import { UpdateUserUsecase } from './usecase/user.update.usecase';
 
+@Injectable()
 export class ServiceUser {
   constructor(
     private readonly createUserUsecase: CreateUserUsecase,
