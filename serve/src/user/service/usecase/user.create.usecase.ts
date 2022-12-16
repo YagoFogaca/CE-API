@@ -5,7 +5,7 @@ import { UserValidationEntity } from 'src/user/entities/user.validation.entity';
 import { UserRepository } from '../user.repository';
 
 @Injectable()
-export class UserCreateUsecase {
+export class CreateUserUsecase {
   constructor(private readonly userRepository: UserRepository) {}
 
   async execute(user: CreateUserDto): Promise<IUserEntity> {

@@ -5,7 +5,7 @@ import { Role } from 'src/utils/enums/role.enum';
 import { UserRepository } from '../user.repository';
 
 @Injectable()
-export class UserUpdateUsecase {
+export class UpdateUserUsecase {
   constructor(private readonly userRepository: UserRepository) {}
 
   async execute(user: UpdateUserDto): Promise<IUserEntity> {
