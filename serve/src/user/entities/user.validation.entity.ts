@@ -1,18 +1,16 @@
-import { UpdateUserDto } from '../dto/update.userDto';
 import { Role } from '../../utils/enums/role.enum';
 import { randomUUID } from 'crypto';
 import { Exception } from 'src/utils/exceptions/exception';
 import { Exceptions } from 'src/utils/exceptions/exceptions.parms';
+import { CreateUserDto } from '../dto/create.userDto';
 
 export class UserValidationEntity {
-  id: string;
   nome: string;
   nome_usuario: string;
   senha: string;
   role: string;
 
-  constructor(user: UpdateUserDto) {
-    this.id = user.id ?? randomUUID();
+  constructor(user: CreateUserDto) {
     this.nome = user.nome;
     this.nome_usuario = user.nome_usuario;
     this.senha = user.senha;
@@ -62,7 +60,7 @@ export class UserValidationEntity {
     this.validateRole();
 
     return {
-      id: this.id,
+      id: randomUUID(),
       nome: this.nome,
       nome_usuario: this.nome_usuario,
       senha: this.senha,
