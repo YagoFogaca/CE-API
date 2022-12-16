@@ -52,14 +52,13 @@ export class UpdateUserUsecase {
       delete user.senha;
     }
 
-    const userUpdated = await this.userRepository.update(user);
-    if (!userUpdated) {
+    try {
+      return await this.userRepository.update(user);
+    } catch (err) {
       throw new Exception(
-        Exceptions.DatabaseException,
+        Exceptions.NotFoundData,
         'Ocorreu um error ao atualizar o usuário',
       );
     }
-
-    return userUpdated;
   }
 }
