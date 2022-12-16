@@ -7,11 +7,13 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger/dist';
 import { HandleExceptions } from 'src/utils/exceptions/exceptions';
 import { CreateUserDto } from './dto/create.userDto';
 import { UpdateUserDto } from './dto/update.userDto';
 import { ServiceUser } from './service/user.service';
 
+@ApiTags('Usuários')
 @Controller('user')
 export class ControllerUser {
   constructor(private readonly serviceUser: ServiceUser) {}
