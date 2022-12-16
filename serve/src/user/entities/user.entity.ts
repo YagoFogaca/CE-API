@@ -1,7 +1,5 @@
-export interface IUserEntity {
+import { CreateUserDto } from '../dto/create.userDto';
+
+export interface IUserEntity extends CreateUserDto {
   id: string;
-  nome: string;
-  nome_usuario: string;
-  senha: string;
-  role: string;
 }
