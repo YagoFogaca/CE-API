@@ -1,6 +1,8 @@
 import { UpdateUserDto } from '../dto/update.userDto';
 import { Role } from '../../utils/enums/role.enum';
 import { randomUUID } from 'crypto';
+import { Exception } from 'src/utils/exceptions/exception';
+import { Exceptions } from 'src/utils/exceptions/exceptions.parms';
 
 export class UserValidationEntity {
   id: string;
@@ -19,25 +21,37 @@ export class UserValidationEntity {
 
   validateUserName() {
     if (this.nome_usuario.length < 3) {
-      throw new Error('O nome de usário não pode ser menor que 3 caracteres');
+      throw new Exception(
+        Exceptions.InvalidData,
+        'O nome de usário não pode ser menor que 3 caracteres',
+      );
     }
   }
 
   validateNameUser() {
     if (this.nome.length <= 2) {
-      throw new Error('O nome do usário não pode ser menor que 3 caracteres');
+      throw new Exception(
+        Exceptions.InvalidData,
+        'O nome do usário não pode ser menor que 3 caracteres',
+      );
     }
   }
 
   validatePassword() {
     if (this.senha.length <= 6) {
-      throw new Error('A senha não pode ser menor que 7 caracteres');
+      throw new Exception(
+        Exceptions.InvalidData,
+        'A senha não pode ser menor que 7 caracteres',
+      );
     }
   }
 
   validateRole() {
     if (this.role !== Role.ADMIN && this.role !== Role.USER) {
-      throw new Error('A permissão do usuario está incorreta');
+      throw new Exception(
+        Exceptions.InvalidData,
+        'A permissão do usuario está incorreta',
+      );
     }
   }
 
