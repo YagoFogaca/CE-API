@@ -21,7 +21,7 @@ export class ControllerUser {
     try {
       return await this.serviceUser.create(user);
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
       HandleExceptions(err);
     }
   }
@@ -31,7 +31,7 @@ export class ControllerUser {
     try {
       return await this.serviceUser.delete(id);
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
       HandleExceptions(err);
     }
   }
@@ -41,7 +41,7 @@ export class ControllerUser {
     try {
       return await this.serviceUser.findAll();
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
       HandleExceptions(err);
     }
   }
@@ -51,7 +51,7 @@ export class ControllerUser {
     try {
       return await this.serviceUser.findById(id);
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
       HandleExceptions(err);
     }
   }
@@ -61,7 +61,7 @@ export class ControllerUser {
     try {
       return await this.serviceUser.update(user, id);
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
       HandleExceptions(err);
     }
   }
