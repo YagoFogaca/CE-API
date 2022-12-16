@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common/decorators';
-import { PrismaModule } from 'src/prisma/database.module';
+import { DatabaseModule } from 'src/prisma/database.module';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserUsecase } from './service/usecase/user.create.usecase';
 import { DeleteUserUsecase } from './service/usecase/user.delete.usecase';
@@ -11,7 +11,7 @@ import { ServiceUser } from './service/user.service';
 import { ControllerUser } from './user.controller';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [DatabaseModule],
   controllers: [ControllerUser],
   providers: [
     ServiceUser,
