@@ -11,9 +11,44 @@ datasource db {
 }
 
 model user {
-  id           String @id @unique
+  id           String        @id @unique
   nome         String
-  nome_usuario String @unique
+  nome_usuario String        @unique
   senha        String
   role         String
+  supply       supply[]
+  entrySupply  entrySupply[]
+  exitSupply   exitSupply[]
+}
+
+model supply {
+  id            String        @id @unique
+  id_user       String
+  user          user          @relation(fields: [id_user], references: [id])
+  nome          String
+  quant_estoque Int
+  unidade       String
+  ativo         Boolean
+  entrySupply   entrySupply[]
+  exitSupply    exitSupply[]
+}
+
+model entrySupply {
+  id        String   @id @unique
+  id_user   String
+  id_supply String
+  user      user     @relation(fields: [id_user], references: [id])
+  supply    supply   @relation(fields: [id_supply], references: [id])
+  quant     Int
+  data      DateTime
+}
+
+model exitSupply {
+  id        String   @id @unique
+  id_user   String
+  id_supply String
+  user      user     @relation(fields: [id_user], references: [id])
+  supply    supply   @relation(fields: [id_supply], references: [id])
+  quant     Int
+  data      DateTime
 }
