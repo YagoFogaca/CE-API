@@ -6,6 +6,6 @@ import { CreateSupplyDto } from '../dto/create.supplyDto';
 export interface ISupplyEntity extends CreateSupplyDto {
   id: string;
   user: IUserEntity;
-  exit: IExitEntity[];
-  entry: IEntryEntity[];
+  exitSupply: IExitEntity[];
+  entrySupply: IEntryEntity[];
 }

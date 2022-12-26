@@ -10,31 +10,31 @@ import { UpdateUserUsecase } from './usecase/user.update.usecase';
 
 @Injectable()
 export class ServiceUser {
-  constructor(
-    private readonly createUserUsecase: CreateUserUsecase,
-    private readonly deleteUserUsecase: DeleteUserUsecase,
-    private readonly findAllUserUsecase: FindAllUserUsecase,
-    private readonly findByIdUserUsecase: FindByIdUserUsecase,
-    private readonly updateUserUsecase: UpdateUserUsecase,
-  ) {}
+    constructor(
+        private readonly createUserUsecase: CreateUserUsecase,
+        private readonly deleteUserUsecase: DeleteUserUsecase,
+        private readonly findAllUserUsecase: FindAllUserUsecase,
+        private readonly findByIdUserUsecase: FindByIdUserUsecase,
+        private readonly updateUserUsecase: UpdateUserUsecase,
+    ) {}
 
-  async create(user: CreateUserDto): Promise<IUserEntity> {
-    return await this.createUserUsecase.execute(user);
-  }
+    async create(user: CreateUserDto): Promise<IUserEntity> {
+        return await this.createUserUsecase.execute(user);
+    }
 
-  async delete(id: string): Promise<string> {
-    await this.deleteUserUsecase.execute(id);
-    return 'Usuário deletado com sucesso';
-  }
+    async delete(id: string): Promise<string> {
+        await this.deleteUserUsecase.execute(id);
+        return 'Usuário deletado com sucesso';
+    }
 
-  async findAll(): Promise<IUserEntity[]> {
-    return await this.findAllUserUsecase.execute();
-  }
-  async findById(id: string): Promise<IUserEntity> {
-    return await this.findByIdUserUsecase.execute(id);
-  }
+    async findAll(): Promise<IUserEntity[]> {
+        return await this.findAllUserUsecase.execute();
+    }
+    async findById(id: string): Promise<IUserEntity> {
+        return await this.findByIdUserUsecase.execute(id);
+    }
 
-  async update(user: UpdateUserDto, id: string): Promise<IUserEntity> {
-    return await this.updateUserUsecase.execute({ ...user, id });
-  }
+    async update(user: UpdateUserDto, id: string): Promise<IUserEntity> {
+        return await this.updateUserUsecase.execute({ ...user, id });
+    }
 }
