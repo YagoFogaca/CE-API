@@ -7,10 +7,10 @@ import { ISupplyEntity } from '../entities/supply.entity';
 export class SupplyRepository {
     constructor(private readonly prismaService: PrismaService) {}
 
-    async create(supply: CreateSupplyDto, id: string): Promise<ISupplyEntity> {
+    async create(supply: ISupplyEntity): Promise<ISupplyEntity> {
         return await this.prismaService.supply.create({
             data: {
-                id: id,
+                id: supply.id,
                 nome: supply.nome,
                 quant_estoque: supply.quant_estoque,
                 unidade: supply.unidade,
@@ -33,6 +33,10 @@ export class SupplyRepository {
                 exitSupply: true,
             },
         });
+    }
+
+    async findByName(name: string): Promise<ISupplyEntity> {
+        return this.prismaService.supply.findFirst({ where: { nome: name } });
     }
 
     // async findById(id: string): Promise<IUserEntity> {
