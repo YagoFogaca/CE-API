@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSupplyDto } from '../dto/create.supplyDto';
-import { SupplyRepository } from './supply.repository';
+import { CreateSupplyUsecase } from './usecase/supply.create.usecase';
 
 @Injectable()
 export class SupplyService {
-  constructor(private readonly supplyRepository: SupplyRepository) {}
+    constructor(private readonly createSupplyUsecase: CreateSupplyUsecase) {}
 
-  async create(supply: CreateSupplyDto) {
-    return await this.supplyRepository.create(supply, 'N512555117');
-  }
+    async create(supply: CreateSupplyDto) {
+        return await this.createSupplyUsecase.execute(supply);
+    }
 }
