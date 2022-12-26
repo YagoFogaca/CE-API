@@ -19,7 +19,7 @@ export class CreateSupplyUsecase {
         await this.serviceUser.findById(supply.id_user);
 
         const verifyName = await this.supplyRepository.findByName(supply.nome);
-        if (!verifyName) {
+        if (verifyName) {
             throw new Exception(
                 Exceptions.InvalidData,
                 'O insumo com esse nome já foi cadastrado no sistema',
