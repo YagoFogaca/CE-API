@@ -8,31 +8,30 @@ import { UserRepository } from '../user.repository';
 
 @Injectable()
 export class CreateUserUsecase {
-  constructor(private readonly userRepository: UserRepository) {}
+    constructor(private readonly userRepository: UserRepository) {}
 
-  async execute(user: CreateUserDto): Promise<IUserEntity> {
-    const verifyUsername = await this.userRepository.findByUserName(
-      user.nome_usuario,
-    );
-    if (verifyUsername) {
-      throw new Exception(
-        Exceptions.InvalidData,
-        'O nome de usuário já existe',
-      );
+    async execute(user: CreateUserDto): Promise<IUserEntity> {
+        const verifyUsername = await this.userRepository.findByUserName(
+            user.nome_usuario,
+        );
+        if (verifyUsername) {
+            throw new Exception(
+                Exceptions.InvalidData,
+                'O nome de usuário já existe',
+            );
+        }
+
+        const userEntity = new UserValidationEntity(user);
+        const userCreated = await this.userRepository.create(
+            userEntity.returnUser(),
+        );
+        if (!userCreated) {
+            throw new Exception(
+                Exceptions.DatabaseException,
+                'Ocorreu um error ao criar um usuário',
+            );
+        }
+
+        return userCreated;
     }
-
-    const userEntity = new UserValidationEntity(user);
-
-    const userCreated = await this.userRepository.create(
-      userEntity.returnUser(),
-    );
-    if (!userCreated) {
-      throw new Exception(
-        Exceptions.DatabaseException,
-        'Ocorreu um error ao criar um usuário',
-      );
-    }
-
-    return userCreated;
-  }
 }
