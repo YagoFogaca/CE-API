@@ -4,8 +4,8 @@ import { IUserEntity } from 'src/user/entities/user.entity';
 import { CreateSupplyDto } from '../dto/create.supplyDto';
 
 export interface ISupplyEntity extends CreateSupplyDto {
-  id: string;
-  user: IUserEntity;
-  exitSupply: IExitEntity[];
-  entrySupply: IEntryEntity[];
+    id: string;
+    user?: IUserEntity;
+    exitSupply?: IExitEntity[];
+    entrySupply?: IEntryEntity[];
 }
