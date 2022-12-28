@@ -14,7 +14,7 @@ export class SupplyController {
       try {
          return await this.supplyService.create(supply);
       } catch (err) {
-         console.log(err);
+         console.log(err.message);
          HandleExceptions(err);
       }
    }
@@ -24,7 +24,7 @@ export class SupplyController {
       try {
          return await this.supplyService.findAll();
       } catch (err) {
-         console.log(err);
+         console.log(err.message);
          HandleExceptions(err);
       }
    }
@@ -34,7 +34,7 @@ export class SupplyController {
       try {
          return await this.supplyService.findById(id);
       } catch (err) {
-         console.log(err);
+         console.log(err.message);
          HandleExceptions(err);
       }
    }
@@ -44,7 +44,7 @@ export class SupplyController {
       try {
          return await this.supplyService.delete(id);
       } catch (err) {
-         console.log(err);
+         console.log(err.message);
          HandleExceptions(err);
       }
    }
