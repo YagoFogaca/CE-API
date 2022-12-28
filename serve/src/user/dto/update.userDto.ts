@@ -4,8 +4,8 @@ import { IsNotEmpty, IsString } from 'class-validator';
 import { CreateUserDto } from './create.userDto';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  id: string;
+   @ApiProperty()
+   @IsNotEmpty()
+   @IsString()
+   id: string;
 }
