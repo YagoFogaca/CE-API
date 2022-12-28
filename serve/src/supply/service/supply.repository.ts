@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { UpdateSupplyDto } from '../dto/update.supplyDto';
 import { ISupplyEntity } from '../entities/supply.entity';
 
 @Injectable()
@@ -51,7 +52,14 @@ export class SupplyRepository {
       });
    }
 
-   async delete(id: string) {
+   async delete(id: string): Promise<ISupplyEntity> {
       return await this.prismaService.supply.delete({ where: { id: id } });
+   }
+
+   async update(id: string, supply: UpdateSupplyDto): Promise<ISupplyEntity> {
+      return await this.prismaService.supply.update({
+         where: { id: id },
+         data: supply,
+      });
    }
 }
