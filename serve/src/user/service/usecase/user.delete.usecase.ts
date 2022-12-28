@@ -7,16 +7,16 @@ import { UserRepository } from '../user.repository';
 
 @Injectable()
 export class DeleteUserUsecase {
-    constructor(private readonly userRepository: UserRepository) {}
+   constructor(private readonly userRepository: UserRepository) {}
 
-    async execute(id: string): Promise<IUserEntity> {
-        try {
-            return await this.userRepository.delete(id);
-        } catch (err) {
-            throw new Exception(
-                Exceptions.NotFoundData,
-                'Nenhum usuário com esse ID',
-            );
-        }
-    }
+   async execute(id: string): Promise<IUserEntity> {
+      try {
+         return await this.userRepository.delete(id);
+      } catch (err) {
+         throw new Exception(
+            Exceptions.NotFoundData,
+            'Nenhum usuário com esse ID',
+         );
+      }
+   }
 }
