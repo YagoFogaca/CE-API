@@ -50,4 +50,8 @@ export class SupplyRepository {
          },
       });
    }
+
+   async delete(id: string) {
+      return await this.prismaService.supply.delete({ where: { id: id } });
+   }
 }

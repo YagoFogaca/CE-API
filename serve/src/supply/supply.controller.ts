@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { HandleExceptions } from 'src/utils/exceptions/exceptions';
 import { CreateSupplyDto } from './dto/create.supplyDto';
@@ -33,6 +33,16 @@ export class SupplyController {
    async findById(@Param('id') id: string) {
       try {
          return await this.supplyService.findById(id);
+      } catch (err) {
+         console.log(err);
+         HandleExceptions(err);
+      }
+   }
+
+   @Delete('/delete/:id')
+   async delete(@Param('id') id: string) {
+      try {
+         return await this.supplyService.delete(id);
       } catch (err) {
          console.log(err);
          HandleExceptions(err);
