@@ -5,7 +5,7 @@ import { Exceptions } from 'src/utils/exceptions/exceptions.parms';
 import { EntryRepository } from '../entry.repository';
 
 @Injectable()
-export class FindAllEntrySupplyUsecase {
+export class FindByIdEntrySupplyUsecase {
    constructor(private readonly entryRepository: EntryRepository) {}
 
    async execute(id: string): Promise<IEntryEntity> {
@@ -13,7 +13,7 @@ export class FindAllEntrySupplyUsecase {
       if (!entrySuply) {
          throw new Exception(
             Exceptions.NotFoundData,
-            'Nenhuma entrada com esse insumo',
+            'Nenhuma entrada com esse id',
          );
       }
 
