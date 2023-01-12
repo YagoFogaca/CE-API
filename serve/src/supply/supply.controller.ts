@@ -1,7 +1,16 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+   Body,
+   Controller,
+   Delete,
+   Get,
+   Param,
+   Patch,
+   Post,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { HandleExceptions } from 'src/utils/exceptions/exceptions';
 import { CreateSupplyDto } from './dto/create.supplyDto';
+import { UpdateSupplyDto } from './dto/update.supplyDto';
 import { SupplyService } from './service/supply.service';
 
 @ApiTags('Insumos')
@@ -45,6 +54,17 @@ export class SupplyController {
          return await this.supplyService.delete(id);
       } catch (err) {
          console.log(err.message);
+         HandleExceptions(err);
+      }
+   }
+
+   @Patch('/update/:id')
+   async update(@Param('id') id: string, @Body() supply: UpdateSupplyDto) {
+      try {
+         console.log(supply);
+         return await this.supplyService.update(id, supply);
+      } catch (err) {
+         console.log(err);
          HandleExceptions(err);
       }
    }

@@ -7,6 +7,7 @@ import { CreateSupplyUsecase } from './service/usecase/supply.create.usecase';
 import { DeleteSupplyUsecase } from './service/usecase/supply.delete.usecase';
 import { FindAllSupplyUsecase } from './service/usecase/supply.findAll.usecase';
 import { FindByIdSupplyUsecase } from './service/usecase/supply.findById.usecase';
+import { UpdateSupplyUsecase } from './service/usecase/supply.update.usecase';
 import { SupplyController } from './supply.controller';
 
 @Module({
@@ -18,6 +19,7 @@ import { SupplyController } from './supply.controller';
       FindAllSupplyUsecase,
       FindByIdSupplyUsecase,
       DeleteSupplyUsecase,
+      UpdateSupplyUsecase,
       SupplyRepository,
    ],
 })
