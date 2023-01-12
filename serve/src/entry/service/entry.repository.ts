@@ -1,7 +1,9 @@
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UpdateEntryDto } from '../dto/update.entryDto';
 import { IEntryEntity } from '../entities/entry.entity';
 
+@Injectable()
 export class EntryRepository {
    private _include = { supply: true, user: true };
    constructor(private readonly prismaService: PrismaService) {}
