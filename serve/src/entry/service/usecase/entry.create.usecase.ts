@@ -15,12 +15,15 @@ export class CreateEntrySupplyUsecase {
    ) {}
 
    async execute(entrySupply: CreateEntryDto): Promise<IEntryEntity> {
+      console.log(entrySupply);
       await this.serviceUser.findById(entrySupply.id_user);
 
       const supply = await this.serviceSupply.findById(entrySupply.id_supply);
       supply.quant_estoque += entrySupply.quant;
 
-      await this.serviceSupply.update(supply.id, supply);
+      await this.serviceSupply.update(supply.id, {
+         quant_estoque: supply.quant_estoque,
+      });
 
       const entryValidationEntity = new EntryValidationEntity(entrySupply);
 
