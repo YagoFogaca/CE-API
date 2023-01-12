@@ -22,5 +22,6 @@ import { SupplyController } from './supply.controller';
       UpdateSupplyUsecase,
       SupplyRepository,
    ],
+   exports: [SupplyService],
 })
 export class SupplyModule {}
