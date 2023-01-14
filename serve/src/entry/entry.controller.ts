@@ -10,6 +10,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { HandleExceptions } from 'src/utils/exceptions/exceptions';
 import { CreateEntryDto } from './dto/create.entryDto';
+import { UpdateEntryDto } from './dto/update.entryDto';
 import { ServiceEntry } from './service/entry.service';
 
 @ApiTags('Entrada de Insumos')
@@ -57,14 +58,13 @@ export class EntrySupplyController {
       }
    }
 
-   //    @Patch('/update/:id')
-   //    async update(@Param('id') id: string, @Body() supply: UpdateSupplyDto) {
-   //       try {
-   //          console.log(supply);
-   //          return await this.supplyService.update(id, supply);
-   //       } catch (err) {
-   //          console.log(err);
-   //          HandleExceptions(err);
-   //       }
-   //    }
+   @Patch('/update/:id')
+   async update(@Param('id') id: string, @Body() entry: UpdateEntryDto) {
+      try {
+         return await this.serviceEntry.update(id, entry);
+      } catch (err) {
+         console.log(err);
+         HandleExceptions(err);
+      }
+   }
 }

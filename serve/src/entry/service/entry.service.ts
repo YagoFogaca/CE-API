@@ -6,6 +6,7 @@ import { CreateEntrySupplyUsecase } from './usecase/entry.create.usecase';
 import { DeleteEntrySupplyUsecase } from './usecase/entry.delete.usecase';
 import { FindAllEntrySupplyUsecase } from './usecase/entry.findAll.usecase';
 import { FindByIdEntrySupplyUsecase } from './usecase/entry.findById.usecase';
+import { UpdateEntrySupplyUsecase } from './usecase/entry.update.usecase';
 
 @Injectable()
 export class ServiceEntry {
@@ -14,6 +15,7 @@ export class ServiceEntry {
       private readonly findAllEntrySupplyUsecase: FindAllEntrySupplyUsecase,
       private readonly findByIdEntrySupplyUsecase: FindByIdEntrySupplyUsecase,
       private readonly deleteEntrySupplyUsecase: DeleteEntrySupplyUsecase,
+      private readonly updateEntrySupplyUsecase: UpdateEntrySupplyUsecase,
    ) {}
 
    async create(entrySuply: CreateEntryDto): Promise<IEntryEntity> {
@@ -33,5 +35,7 @@ export class ServiceEntry {
       return 'Entrada deletada com sucesso';
    }
 
-   async update(id: string, entrySuply: UpdateEntryDto) {}
+   async update(id: string, entrySuply: UpdateEntryDto) {
+      return await this.updateEntrySupplyUsecase.execute(id, entrySuply);
+   }
 }

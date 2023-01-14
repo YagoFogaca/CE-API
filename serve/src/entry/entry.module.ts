@@ -9,6 +9,7 @@ import { CreateEntrySupplyUsecase } from './service/usecase/entry.create.usecase
 import { DeleteEntrySupplyUsecase } from './service/usecase/entry.delete.usecase';
 import { FindAllEntrySupplyUsecase } from './service/usecase/entry.findAll.usecase';
 import { FindByIdEntrySupplyUsecase } from './service/usecase/entry.findById.usecase';
+import { UpdateEntrySupplyUsecase } from './service/usecase/entry.update.usecase';
 
 @Module({
    imports: [DatabaseModule, ModuleUser, SupplyModule],
@@ -19,6 +20,7 @@ import { FindByIdEntrySupplyUsecase } from './service/usecase/entry.findById.use
       FindAllEntrySupplyUsecase,
       FindByIdEntrySupplyUsecase,
       DeleteEntrySupplyUsecase,
+      UpdateEntrySupplyUsecase,
       EntryRepository,
    ],
 })
