@@ -28,7 +28,9 @@ export class EntryRepository {
    }
 
    async findAll(): Promise<IEntryEntity[]> {
-      return await this.prismaService.entrySupply.findMany();
+      return await this.prismaService.entrySupply.findMany({
+         include: this._include,
+      });
    }
 
    async findById(id: string): Promise<IEntryEntity> {
