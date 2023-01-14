@@ -26,9 +26,11 @@ export class CreateEntrySupplyUsecase {
       });
 
       const entryValidationEntity = new EntryValidationEntity(entrySupply);
+      const entryValidated = entryValidationEntity.returnEntry();
 
       return await this.entryRepository.create(
-         entryValidationEntity.returnEntry(),
+         entryValidated,
+         entryValidated.id,
       );
    }
 }

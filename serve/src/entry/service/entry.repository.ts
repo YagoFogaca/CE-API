@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateEntryDto } from '../dto/create.entryDto';
 import { UpdateEntryDto } from '../dto/update.entryDto';
 import { IEntryEntity } from '../entities/entry.entity';
 
@@ -8,13 +9,10 @@ export class EntryRepository {
    private _include = { supply: true, user: true };
    constructor(private readonly prismaService: PrismaService) {}
 
-   async create({
-      id,
-      id_supply,
-      id_user,
-      quant,
-      data,
-   }: IEntryEntity): Promise<IEntryEntity> {
+   async create(
+      { id_supply, id_user, quant, data }: CreateEntryDto,
+      id: string,
+   ): Promise<IEntryEntity> {
       return await this.prismaService.entrySupply.create({
          data: {
             data: data,
@@ -41,13 +39,17 @@ export class EntryRepository {
    }
 
    async delete(id: string): Promise<IEntryEntity> {
-      return await this.prismaService.entrySupply.delete({ where: { id: id } });
+      return await this.prismaService.entrySupply.delete({
+         where: { id: id },
+         include: this._include,
+      });
    }
 
    async update(id: string, entrySuply: UpdateEntryDto): Promise<IEntryEntity> {
       return await this.prismaService.entrySupply.update({
          where: { id: id },
          data: entrySuply,
+         include: this._include,
       });
    }
 }
