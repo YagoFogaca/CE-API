@@ -19,7 +19,7 @@ export class SupplyRepository {
          },
          include: {
             user: true,
-            entrySupply: { include: { supply: true } },
+            entrySupply: true,
             exitSupply: true,
          },
       });
@@ -29,7 +29,7 @@ export class SupplyRepository {
       return await this.prismaService.supply.findMany({
          include: {
             user: true,
-            entrySupply: { include: { supply: true } },
+            entrySupply: true,
             exitSupply: true,
          },
       });
@@ -46,7 +46,7 @@ export class SupplyRepository {
          where: { id: id },
          include: {
             user: true,
-            entrySupply: { include: { supply: true } },
+            entrySupply: true,
             exitSupply: true,
          },
       });
