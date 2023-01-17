@@ -1,7 +1,10 @@
+import { ConsoleLogger } from '@nestjs/common';
 import { Injectable } from '@nestjs/common/decorators';
 import { UpdateEntryDto } from 'src/entry/dto/update.entryDto';
 import { ISupplyEntity } from 'src/supply/entities/supply.entity';
 import { SupplyService } from 'src/supply/service/supply.service';
+import { Exception } from 'src/utils/exceptions/exception';
+import { Exceptions } from 'src/utils/exceptions/exceptions.parms';
 import { EntryRepository } from '../entry.repository';
 
 @Injectable()
@@ -11,50 +14,49 @@ export class UpdateEntrySupplyUsecase {
       private readonly serviceSupply: SupplyService,
    ) {}
 
-   ConsoleLog(msg: string, log: any) {
-      console.log();
-      console.log(msg);
-      console.log('-----------------------');
-      console.log();
-      console.log(log);
-      console.log('-----------------------');
-      console.log();
-   }
-
    async execute(id: string, entry: UpdateEntryDto) {
       const entryUpdate = await this.entryRepository.findById(id);
-      let verifyNewSupply: ISupplyEntity;
+      let supply: ISupplyEntity = entryUpdate.supply;
 
       if (entry.id_supply) {
          if (entry.id_supply !== entryUpdate.id_supply) {
-            // Verificar se esse insumo existe
-            verifyNewSupply = await this.serviceSupply.findById(
-               entry.id_supply,
-            );
+            supply = await this.serviceSupply.findById(entry.id_supply);
 
-            // Pegou a quantidade de estoque do insumo antigo e retirar a entrada
-            const updateQuant =
-               entryUpdate.supply.quant_estoque - entryUpdate.quant;
+            if (entryUpdate.supply.quant_estoque >= entryUpdate.quant) {
+               entryUpdate.supply.quant_estoque -= entryUpdate.quant;
+            } else {
+               entryUpdate.supply.quant_estoque = 0;
+            }
 
-            // Atualizo o insumo antigo sem a entrada
-            const oldSupply = await this.serviceSupply.update(
-               entryUpdate.supply.id,
-               {
-                  quant_estoque: updateQuant,
-               },
-            );
-
-            this.ConsoleLog('Insumo antigo', oldSupply);
-
-            verifyNewSupply.quant_estoque += entryUpdate.quant;
-
-            // ATULIZAR O INSUMO COM A NOVA QUANTIDADE DE ESTOQUE
-            await this.serviceSupply.update(verifyNewSupply.id, {
-               quant_estoque: verifyNewSupply.quant_estoque,
+            await this.serviceSupply.update(entryUpdate.supply.id, {
+               quant_estoque: entryUpdate.supply.quant_estoque,
             });
          }
-
-         return await this.entryRepository.update(id, entry);
       }
+
+      if (entry.quant) {
+         if (entry.quant !== entryUpdate.quant) {
+            if (entry.quant > entryUpdate.quant) {
+               entryUpdate.quant = entry.quant - entryUpdate.quant;
+               supply.quant_estoque += entryUpdate.quant;
+            } else if (entry.quant < entryUpdate.quant) {
+               entryUpdate.quant = entryUpdate.quant - entry.quant;
+               supply.quant_estoque -= entryUpdate.quant;
+            }
+         }
+      } else if (entry.quant <= 0) {
+         throw new Exception(
+            Exceptions.InvalidData,
+            'A entrada de insumo não pode ser menor ou igual a zero',
+         );
+      } else {
+         supply.quant_estoque += entryUpdate.quant;
+      }
+
+      await this.serviceSupply.update(supply.id, {
+         quant_estoque: supply.quant_estoque,
+      });
+
+      return await this.entryRepository.update(id, entry);
    }
 }
