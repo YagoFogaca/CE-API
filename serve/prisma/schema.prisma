@@ -23,8 +23,8 @@ model user {
 
 model supply {
   id            String        @id @unique
-  id_user       String
-  user          user          @relation(fields: [id_user], references: [id])
+  id_user       String?
+  user          user?         @relation(fields: [id_user], references: [id], onDelete: SetNull)
   nome          String
   quant_estoque Int
   unidade       String
@@ -35,20 +35,20 @@ model supply {
 
 model entrySupply {
   id        String   @id @unique
-  id_user   String
+  id_user   String?
   id_supply String
-  user      user     @relation(fields: [id_user], references: [id])
-  supply    supply   @relation(fields: [id_supply], references: [id])
+  user      user?    @relation(fields: [id_user], references: [id], onDelete: SetNull)
+  supply    supply   @relation(fields: [id_supply], references: [id], onDelete: Cascade)
   quant     Int
   data      DateTime
 }
 
 model exitSupply {
   id        String   @id @unique
-  id_user   String
+  id_user   String?
   id_supply String
-  user      user     @relation(fields: [id_user], references: [id])
-  supply    supply   @relation(fields: [id_supply], references: [id])
+  user      user?    @relation(fields: [id_user], references: [id], onDelete: SetNull)
+  supply    supply   @relation(fields: [id_supply], references: [id], onDelete: Cascade)
   quant     Int
   data      DateTime
 }
