@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common/decorators';
+import { PassportModule } from '@nestjs/passport';
 import { DatabaseModule } from 'src/prisma/database.module';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserUsecase } from './service/usecase/user.create.usecase';
@@ -11,18 +12,21 @@ import { ServiceUser } from './service/user.service';
 import { ControllerUser } from './user.controller';
 
 @Module({
-  imports: [DatabaseModule],
-  controllers: [ControllerUser],
-  providers: [
-    ServiceUser,
-    CreateUserUsecase,
-    DeleteUserUsecase,
-    FindAllUserUsecase,
-    FindByIdUserUsecase,
-    UpdateUserUsecase,
-    UserRepository,
-    PrismaService,
-  ],
-  exports: [ServiceUser, UserRepository],
+   imports: [
+      DatabaseModule,
+      PassportModule.register({ defaultStrategy: 'jwt' }),
+   ],
+   controllers: [ControllerUser],
+   providers: [
+      ServiceUser,
+      CreateUserUsecase,
+      DeleteUserUsecase,
+      FindAllUserUsecase,
+      FindByIdUserUsecase,
+      UpdateUserUsecase,
+      UserRepository,
+      PrismaService,
+   ],
+   exports: [ServiceUser, UserRepository],
 })
 export class ModuleUser {}

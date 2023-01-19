@@ -6,8 +6,10 @@ import {
    Param,
    Patch,
    Post,
+   UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger/dist';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger/dist';
 import { HandleExceptions } from 'src/utils/exceptions/exceptions';
 import { CreateUserDto } from './dto/create.userDto';
 import { UpdateUserDto } from './dto/update.userDto';
@@ -18,6 +20,8 @@ import { ServiceUser } from './service/user.service';
 export class ControllerUser {
    constructor(private readonly serviceUser: ServiceUser) {}
 
+   @UseGuards(AuthGuard())
+   @ApiBearerAuth()
    @Post('/create-user')
    async createUser(@Body() user: CreateUserDto) {
       try {
@@ -28,16 +32,8 @@ export class ControllerUser {
       }
    }
 
-   @Delete('/delete-user/:id')
-   async delete(@Param('id') id: string) {
-      try {
-         return await this.serviceUser.delete(id);
-      } catch (err) {
-         console.log(err.message);
-         HandleExceptions(err);
-      }
-   }
-
+   @UseGuards(AuthGuard())
+   @ApiBearerAuth()
    @Get('/find-users')
    async findAll() {
       try {
@@ -48,6 +44,8 @@ export class ControllerUser {
       }
    }
 
+   @UseGuards(AuthGuard())
+   @ApiBearerAuth()
    @Get('/find-user/:id')
    async findById(@Param('id') id: string) {
       try {
@@ -58,6 +56,20 @@ export class ControllerUser {
       }
    }
 
+   @UseGuards(AuthGuard())
+   @ApiBearerAuth()
+   @Delete('/delete-user/:id')
+   async delete(@Param('id') id: string) {
+      try {
+         return await this.serviceUser.delete(id);
+      } catch (err) {
+         console.log(err.message);
+         HandleExceptions(err);
+      }
+   }
+
+   @UseGuards(AuthGuard())
+   @ApiBearerAuth()
    @Patch('/update-user/:id')
    async update(@Body() user: UpdateUserDto, @Param('id') id: string) {
       try {

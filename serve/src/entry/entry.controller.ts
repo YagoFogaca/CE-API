@@ -6,8 +6,10 @@ import {
    Param,
    Patch,
    Post,
+   UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { HandleExceptions } from 'src/utils/exceptions/exceptions';
 import { CreateEntryDto } from './dto/create.entryDto';
 import { UpdateEntryDto } from './dto/update.entryDto';
@@ -18,6 +20,8 @@ import { ServiceEntry } from './service/entry.service';
 export class EntrySupplyController {
    constructor(private readonly serviceEntry: ServiceEntry) {}
 
+   @UseGuards(AuthGuard())
+   @ApiBearerAuth()
    @Post('/create')
    async create(@Body() supply: CreateEntryDto) {
       try {
@@ -28,6 +32,8 @@ export class EntrySupplyController {
       }
    }
 
+   @UseGuards(AuthGuard())
+   @ApiBearerAuth()
    @Get('/find-all')
    async findAll() {
       try {
@@ -38,6 +44,8 @@ export class EntrySupplyController {
       }
    }
 
+   @UseGuards(AuthGuard())
+   @ApiBearerAuth()
    @Get('/find/:id')
    async findById(@Param('id') id: string) {
       try {
@@ -48,6 +56,8 @@ export class EntrySupplyController {
       }
    }
 
+   @UseGuards(AuthGuard())
+   @ApiBearerAuth()
    @Delete('/delete/:id')
    async delete(@Param('id') id: string) {
       try {
@@ -58,6 +68,8 @@ export class EntrySupplyController {
       }
    }
 
+   @UseGuards(AuthGuard())
+   @ApiBearerAuth()
    @Patch('/update/:id')
    async update(@Param('id') id: string, @Body() entry: UpdateEntryDto) {
       try {

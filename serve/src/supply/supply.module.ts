@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { PassportModule } from '@nestjs/passport';
 import { DatabaseModule } from 'src/prisma/database.module';
 import { ModuleUser } from 'src/user/user.module';
 import { SupplyRepository } from './service/supply.repository';
@@ -11,7 +12,11 @@ import { UpdateSupplyUsecase } from './service/usecase/supply.update.usecase';
 import { SupplyController } from './supply.controller';
 
 @Module({
-   imports: [DatabaseModule, ModuleUser],
+   imports: [
+      DatabaseModule,
+      ModuleUser,
+      PassportModule.register({ defaultStrategy: 'jwt' }),
+   ],
    controllers: [SupplyController],
    providers: [
       SupplyService,
