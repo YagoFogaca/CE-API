@@ -45,7 +45,6 @@ export class UserValidationEntity {
          );
       } else {
          const passwordBcrypt = await bcrypt.hash(this.senha, 10);
-         console.log(passwordBcrypt);
          this.senha = passwordBcrypt;
       }
    }
