@@ -1,6 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { Body, Post } from '@nestjs/common/decorators';
 import { ApiTags } from '@nestjs/swagger';
+import { HandleExceptions } from 'src/utils/exceptions/exceptions';
 import { AuthService } from './auth.service';
 import { IAuth } from './entities/auth.entity';
 
@@ -11,6 +12,11 @@ export class AuthController {
 
    @Post('/login')
    async login(@Body() user: IAuth) {
-      return await this.authService.login(user);
+      try {
+         return await this.authService.login(user);
+      } catch (err) {
+         console.log(err.message);
+         HandleExceptions(err);
+      }
    }
 }
