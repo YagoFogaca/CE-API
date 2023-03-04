@@ -1,4 +1,3 @@
-import { ConsoleLogger } from '@nestjs/common';
 import { Injectable } from '@nestjs/common/decorators';
 import { UpdateEntryDto } from 'src/entry/dto/update.entryDto';
 import { ISupplyEntity } from 'src/supply/entities/supply.entity';
