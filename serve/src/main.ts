@@ -11,7 +11,7 @@ async function bootstrap() {
 
    const config = new DocumentBuilder()
       .setTitle('Controle de Estoque')
-      .setVersion('1.0.0')
+      .setVersion('1.0.1')
       .addBearerAuth()
       .build();
    const document = SwaggerModule.createDocument(app, config);
